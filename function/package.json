@@ -1,0 +1,11 @@
+{
+  "name": "two-min",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "clean-css": "^4.1.9",
+    "html-minifier": "^3.5.5",
+    "request": "^2.83.0",
+    "uglify-es": "^3.1.3"
+  }
+}
