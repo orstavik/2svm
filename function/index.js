@@ -68,11 +68,15 @@ const TYPE = {
   map: 'application/octet-stream'
 }
 
-function setHeaders(resp, extention, bodySize, /* refererUrl */) {
+function setHeaders(resp, extention, bodySize /*, refererUrl */) {
   const type = TYPE[extention] || '';
-  // const referer = refererUrl ? url.parse(refererUrl).host : '*';
-  // resp.setHeader('Vary', 'Referer');
   // TODO: no way of setting special CORS policy
+  // How to setting Control-Access-Allow-Origin:
+  // 1. add ?CORS=<host> to the 2cdn.no link. 
+  // 2. 2cdn.no/ will check a list of accepted CORS hosts if the host is whitelisted or blacklisted.
+  // 3a. 2cdn.no/ will then add <host> to the Access-Control-Allow-Origin if it is whitelisted.
+  // 3b. 2cdn.no/ will add only "example.com" if it is not whitelisted.
+  // 4. many whitelisted hosts can be added to this list by default, such as codepen.io, jsfiddle.com, etc.
   resp.setHeader('Content-Type', type);
   resp.setHeader('Content-Length', bodySize);
   resp.setHeader('Access-Control-Allow-Origin', '*');
