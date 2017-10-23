@@ -20,7 +20,7 @@ exports.twoMin = (req, resp) => {
     }).on('end', () => {
       const min = minify(data, ext);
       const size = Buffer.byteLength(min,'utf8');
-      setHeaders(resp, ext, size, req.headers['referer']);
+      setHeaders(resp, ext, size);
       if (!min) {
         resp.statusCode = 500;
         resp.write('500: Failed to minify');
@@ -68,8 +68,8 @@ const TYPE = {
   map: 'application/octet-stream'
 }
 
-function setHeaders(resp, extention, bodySize /*, refererUrl */) {
-  const type = TYPE[extention] || '';
+function setHeaders(resp, extention, bodySize) {
+  const type = TYPE[extention] || 'text/plain';
   // TODO: no way of setting special CORS policy
   // How to setting Control-Access-Allow-Origin:
   // 1. add ?CORS=<host> to the 2cdn.no link. 
