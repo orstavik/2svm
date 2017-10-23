@@ -20,8 +20,7 @@ exports.twoMin = (req, resp) => {
     }).on('end', () => {
       const min = minify(data, ext);
       const size = Buffer.byteLength(min,'utf8');
-      resp.setHeader('Content-Type', type);
-      resp.setHeader('Content-Length', size);
+      setHeaders(resp, ext, size, req.headers['referer']);
       if (!min) {
         resp.statusCode = 500;
         resp.write('500: Failed to minify');
@@ -68,3 +67,13 @@ const TYPE = {
   json: 'application/json',
   map: 'application/octet-stream'
 }
+
+function setHeaders(resp, extention, bodySize, /* refererUrl */) {
+  const type = TYPE[extention] || '';
+  // const referer = refererUrl ? url.parse(refererUrl).host : '*';
+  // resp.setHeader('Vary', 'Referer');
+  // TODO: no way of setting special CORS policy
+  resp.setHeader('Content-Type', type);
+  resp.setHeader('Content-Length', bodySize);
+  resp.setHeader('Access-Control-Allow-Origin', '*');
+};
