@@ -4,11 +4,11 @@
     "rewrites": [
       {
         "source": "**/*",
-        "function": "twoMin"
+        "function": "twoSvm"
       },
       {
         "source": "**/index.html",
-        "function": "twoMin"
+        "function": "twoSvm"
       },
       {
         "source": "**/favicon.ico",
